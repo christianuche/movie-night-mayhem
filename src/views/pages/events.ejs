@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <%- include("../partials/header") %>
+
+  <main>
+<h1>My Events</h1>
+
+<% if (user) { %>
+  <div style="background: linear-gradient(135deg, #e8f4f8 0%, #d0e8f2 100%); padding: 20px; border-radius: 10px; margin-bottom: 25px; border-left: 5px solid #2a5298;">
+    <p style="margin: 0; color: #1e3c72; font-size: 16px;">
+      <strong>Welcome, <%= user.email %>!</strong> 
+      <a href="/logout" style="color: #f39c12; text-decoration: none; font-weight: 600; margin-left: 15px;">Logout</a>
+    </p>
+  </div>
+  <a href="/events/create" class="create-event-btn" style="display: inline-block; margin-bottom: 25px;">Create New Event</a>
+<% } else { %>
+  <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #f39c12;">
+    <p style="margin: 0; color: #856404;">
+      <a href="/login" style="color: #1e3c72; font-weight: 600; text-decoration: none;">Login</a> or 
+      <a href="/signup" style="color: #1e3c72; font-weight: 600; text-decoration: none;">Sign Up</a> to create events
+    </p>
+  </div>
+<% } %>
+
+<div id="eventsContainer">
+  <% if (events.length === 0) { %>
+    <div style="background: white; padding: 40px; text-align: center; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+      <p style="color: #999; font-size: 16px; margin: 0;">No events created yet. 🎬</p>
+      <p style="color: #bbb; font-size: 14px; margin-top: 10px;">Start by creating your first movie night event!</p>
+    </div>
+  <% } else { %>
+    <% events.forEach(ev => { %>
+      <div class="event-card">
+        <h3><%= ev.title %></h3>
+        <p style="color: #666; margin: 10px 0;">
+          📅 <%= ev.date ? new Date(ev.date).toDateString() : "No date set" %> 
+          <% if (ev.time) { %> | 🕐 <%= ev.time %> <% } %>
+        </p>
+        <% if (ev.movieTitle) { %>
+          <p style="color: #2a5298; margin: 8px 0;"><strong>🎬 Movie:</strong> <%= ev.movieTitle %></p>
+        <% } %>
+        <p style="color: #666; margin: 8px 0;"><strong>👤 Host:</strong> <%= ev.host ? ev.host.name : "Unknown" %></p>
+        <% if (ev.invites && ev.invites.length > 0) { %>
+          <p style="color: #666; margin: 8px 0;"><strong>👥 Invited:</strong> <%= ev.invites.length %> guest<%= ev.invites.length !== 1 ? 's' : '' %></p>
+        <% } %>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+
+  </main>
+
+  <%- include("../partials/footer") %>
+  <script src="/js/modal.js"></script>
+</body>
+</html>

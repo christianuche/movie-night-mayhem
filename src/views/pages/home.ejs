@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <%- include("../partials/header") %>
+
+  <main>
+
+<section class="search-section">
+  <form action="/search" method="GET" class="search-form">
+    <input type="text" name="q" placeholder="Search Movies..." class="search-input" required />
+    <button class="search-btn">🔍</button>
+  </form>
+</section>
+
+<section class="trending">
+  <h2>Trending Movies</h2>
+
+  <div class="movie-carousel">
+    <% trending.forEach(movie => { %>
+      <div class="movie-card">
+        <% if (movie.poster_path) { %>
+            <img src="https://image.tmdb.org/t/p/w200<%= movie.poster_path %>" alt="<%= movie.title %>" />
+        <% } else { %>
+            <div class="no-poster">No Image</div>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<section class="upcoming-events">
+  <h2>Upcoming Events</h2>
+
+  <% if (events.length === 0) { %>
+    <p>No events yet — create one!</p>
+  <% } else { %>
+    <% events.forEach(event => { %>
+      <div class="event-card">
+        <p><strong><%= event.title %></strong></p>
+
+        <p>
+          <%= new Date(event.date).toDateString() %> — <%= event.time %>
+          <a href="/events/<%= event._id %>">[RSVP]</a>
+        </p>
+
+        <% if (event.movieTitle) { %>
+          <p>🎬 <em><%= event.movieTitle %></em></p>
+        <% } %>
+      </div>
+    <% }) %>
+  <% } %>
+</section>
+
+<section class="create-event-section">
+  <button class="create-event-btn" onclick="openEventModal()">Create Movie Night</button>
+</section>
+
+<section class="recommend">
+  <button class="find-movies-btn" onclick="openEventModal()">Find Movies</button>
+</section>
+
+<div id="eventModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeEventModal()">&times;</span>
+
+    <h2>Create Movie Night</h2>
+
+    <form id="createEventForm" onsubmit="submitEventForm(event)">
+      
+      <label>Event Title</label>
+      <input type="text" id="eventTitle" required />
+
+      <label>Date</label>
+      <input type="date" id="eventDate" required />
+
+      <label>Time</label>
+      <input type="time" id="eventTime" required />
+
+      <label>Movie (optional)</label>
+      <input 
+        type="text" 
+        id="movieSearch" 
+        placeholder="Search for movie..." 
+        onkeyup="searchMovieInModal()" 
+      />
+      <div id="movieResults" class="movie-result-list"></div>
+      <input type="hidden" id="selectedMovie" />
+      <input type="hidden" id="selectedMovieId" />
+
+      <label>Invite Friends (optional)</label>
+      <input 
+        type="text"
+        id="inviteEmails" 
+        placeholder="Invite friends (comma separated emails)" 
+      />
+
+      <button type="submit" class="submit-event-btn">
+        Create Event
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+  </main>
+
+  <%- include("../partials/footer") %>
+  <script src="/js/modal.js"></script>
+</body>
+</html>

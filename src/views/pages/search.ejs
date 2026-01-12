@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <%- include("../partials/header") %>
+
+  <main>
+<h2>Search Results for "<%= query %>"</h2>
+
+<div class="movie-grid">
+  <% results.forEach(movie => { %>
+    <div class="movie-card">
+      <% if (movie.poster_path) { %>
+        <img src="https://image.tmdb.org/t/p/w200<%= movie.poster_path %>" alt="<%= movie.title %>" />
+      <% } else { %>
+        <div class="no-poster">No Image</div>
+      <% } %>
+      <p><%= movie.title %></p>
+    </div>
+  <% }) %>
+</div>
+  </main>
+
+  <%- include("../partials/footer") %>
+  <script src="/js/modal.js"></script>
+</body>
+</html>
