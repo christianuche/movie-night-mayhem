@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Event</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .edit-event-page {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .back-link:hover {
+      color: var(--accent-color);
+      transform: translateX(-3px);
+    }
+
+    .edit-event-page h1 {
+      text-align: center;
+      font-size: 32px;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .page-description {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 15px;
+    }
+
+    .event-form-container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      animation: slideUp 0.3s ease;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 8px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input {
+      padding: 14px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+    }
+
+    .movie-result-list {
+      background: white;
+      border: 2px solid var(--border-color);
+      max-height: 250px;
+      overflow-y: auto;
+      margin-top: -20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .movie-option {
+      padding: 12px 16px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--light-bg);
+      transition: all 0.2s ease;
+      font-size: 14px;
+      color: var(--dark-text);
+    }
+
+    .movie-option:hover {
+      background: var(--light-bg);
+      padding-left: 20px;
+      color: var(--secondary-color);
+      font-weight: 500;
+    }
+
+    .movie-option:last-child {
+      border-bottom: none;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .submit-btn {
+      flex: 1;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    }
+
+    .submit-btn:active:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .cancel-btn {
+      flex: 1;
+      padding: 16px;
+      background: var(--light-bg);
+      border: 2px solid var(--border-color);
+      color: var(--dark-text);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cancel-btn:hover {
+      background: white;
+      border-color: var(--secondary-color);
+      color: var(--secondary-color);
+    }
+
+    .required-note {
+      font-size: 12px;
+      color: #999;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .event-form-container {
+        padding: 25px;
+      }
+
+      .edit-event-page h1 {
+        font-size: 24px;
+      }
+
+      .form-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <%- include("../partials/header") %>
+
+  <main>
+    <div class="edit-event-page">
+      <a href="/events" class="back-link">← Back to Events</a>
+
+      <h1>✏️ Edit Movie Night</h1>
+      <p class="page-description">Update your event details</p>
+
+      <div class="event-form-container">
+        <form id="editEventForm" onsubmit="submitEditEventForm(event)">
+          
+          <div class="form-group">
+            <label for="eventTitle">Event Title</label>
+            <input 
+              type="text" 
+              id="eventTitle" 
+              name="title" 
+              placeholder="e.g., Movie Night at Home" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="eventDate">Date</label>
+            <input 
+              type="date" 
+              id="eventDate" 
+              name="date" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="eventTime">Time</label>
+            <input 
+              type="time" 
+              id="eventTime" 
+              name="time" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="movieSearch">🎥 Movie Selection</label>
+            <input 
+              type="text" 
+              id="movieSearch" 
+              placeholder="Start typing to search..." 
+              onkeyup="searchMovieInModal()" 
+            />
+            <div id="movieResults" class="movie-result-list"></div>
+            <input type="hidden" id="selectedMovie" name="movieTitle" />
+            <input type="hidden" id="selectedMovieId" name="movieId" />
+          </div>
+
+          <div class="form-group">
+            <label for="inviteEmails">👥 Invite Friends</label>
+            <input 
+              type="text"
+              id="inviteEmails" 
+              name="invites"
+              placeholder="email@example.com, friend@example.com" 
+            />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="submit-btn">✓ Update Event</button>
+            <a href="" id="cancelBtn" class="cancel-btn">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <%- include("../partials/footer") %>
+
+  <script src="/js/tmdb.js"></script>
+  <script>
+    let eventId = null;
+
+    // Load event data on page load
+    async function loadEventData() {
+      eventId = localStorage.getItem("editEventId");
+      if (!eventId) {
+        alert("No event selected for editing");
+        window.location.href = "/events";
+        return;
+      }
+
+      try {
+        const response = await fetch(`/events/${eventId}`);
+        if (!response.ok) throw new Error("Failed to load event");
+        
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        
+        // This is a fallback - ideally we'd have an API endpoint
+        console.log("Loading event:", eventId);
+      } catch (error) {
+        console.error("Error loading event:", error);
+      }
+
+      // Set cancel button to go back to event detail
+      document.getElementById("cancelBtn").href = `/events/${eventId}`;
+    }
+
+    async function searchMovieInModal() {
+      const query = document.getElementById("movieSearch").value.trim();
+      const resultsDiv = document.getElementById("movieResults");
+
+      if (query.length < 2) {
+        resultsDiv.innerHTML = "";
+        return;
+      }
+
+      try {
+        const response = await fetch(`/events/search-movie?q=${encodeURIComponent(query)}`);
+        const results = await response.json();
+
+        if (results.length === 0) {
+          resultsDiv.innerHTML = "<p>No movies found</p>";
+          return;
+        }
+
+        resultsDiv.innerHTML = results
+          .map(
+            (movie) =>
+              `<div class="movie-option" onclick="selectMovie('${movie.id}', '${movie.title.replace(/'/g, "\\'")}')">
+                <strong>${movie.title}</strong> (${movie.release_date ? movie.release_date.substring(0, 4) : "N/A"})
+              </div>`
+          )
+          .join("");
+      } catch (error) {
+        console.error("Search error:", error);
+        resultsDiv.innerHTML = "<p>Error searching movies</p>";
+      }
+    }
+
+    function selectMovie(movieId, movieTitle) {
+      document.getElementById("selectedMovie").value = movieTitle;
+      document.getElementById("selectedMovieId").value = movieId;
+      document.getElementById("movieSearch").value = movieTitle;
+      document.getElementById("movieResults").innerHTML = "";
+    }
+
+    async function submitEditEventForm(e) {
+      e.preventDefault();
+
+      const title = document.getElementById("eventTitle").value || null;
+      const date = document.getElementById("eventDate").value || null;
+      const time = document.getElementById("eventTime").value || null;
+      const movieTitle = document.getElementById("selectedMovie").value || null;
+      const movieId = document.getElementById("selectedMovieId").value || null;
+      const invites = document.getElementById("inviteEmails").value || null;
+
+      try {
+        const response = await fetch(`/events/${eventId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title,
+            date,
+            time,
+            movieTitle,
+            movieId,
+            invites,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Event updated successfully!");
+          window.location.href = `/events/${eventId}`;
+        } else {
+          alert("Error: " + data.message);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while updating the event");
+      }
+    }
+
+    // Load event data when page loads
+    window.addEventListener("load", loadEventData);
+  </script>
+
+</body>
+</html>

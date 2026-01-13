@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: movie-night-mayhem
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGO_URL
+        scope: run
+      - key: JWT_SECRET
+        scope: run
+      - key: TMDB_API_KEY
+        scope: run
+      - key: PORT
+        value: 3000

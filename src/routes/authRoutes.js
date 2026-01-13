@@ -17,12 +17,14 @@ function createToken(user) {
 
 // GET SIGNUP PAGE
 router.get("/signup", (req, res) => {
-  res.render("pages/signup", { title: "Sign Up" });
+  const error = req.query.error || null;
+  res.render("pages/signup", { title: "Sign Up", error });
 });
 
 // GET LOGIN PAGE
 router.get("/login", (req, res) => {
-  res.render("pages/login", { title: "Login" });
+  const error = req.query.error || null;
+  res.render("pages/login", { title: "Login", error });
 });
 
 // SIGNUP
@@ -30,28 +32,31 @@ router.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
+    if (!name || !email || !password) {
+      return res.redirect(`/signup?error=${encodeURIComponent("All fields are required")}`);
+    }
+    if (password.length < 6) {
+      return res.redirect(`/signup?error=${encodeURIComponent("Password must be at least 6 characters")}`);
+    }
     let existing = await User.findOne({ email });
-    if (existing) return res.status(400).json({ message: "Email already exists" });
-
+    if (existing) {
+      return res.redirect(`/signup?error=${encodeURIComponent("Email already exists")}`);
+    }
     const hashed = await bcrypt.hash(password, 10);
-
     const user = await User.create({
       name,
       email,
       password: hashed,
     });
-
     const token = createToken(user);
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
     res.redirect("/");
-
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.redirect(`/signup?error=${encodeURIComponent("An error occurred. Please try again.")}`);
   }
 });
 
@@ -60,26 +65,26 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    if (!email || !password) {
+      return res.redirect(`/login?error=${encodeURIComponent("Email and password are required")}`);
+    }
     const user = await User.findOne({ email });
-
-    if (!user) return res.status(400).json({ message: "Invalid email or password" });
-
+    if (!user) {
+      return res.redirect(`/login?error=${encodeURIComponent("Invalid email or password")}`);
+    }
     const match = await bcrypt.compare(password, user.password);
-
-    if (!match) return res.status(400).json({ message: "Incorrect password" });
-
+    if (!match) {
+      return res.redirect(`/login?error=${encodeURIComponent("Invalid email or password")}`);
+    }
     const token = createToken(user);
-
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
     res.redirect("/");
-
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.redirect(`/login?error=${encodeURIComponent("An error occurred. Please try again.")}`);
   }
 });
 

@@ -8,6 +8,7 @@ const eventSchema = new mongoose.Schema({
   movieId: String,          // TMDb movie ID
   movieTitle: String,       // Movie title for display
   invites: [String],        // Array of invited emails
+  attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // Users who RSVP'd
   host: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   createdAt: { type: Date, default: Date.now },
 });

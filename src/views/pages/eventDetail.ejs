@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .event-detail-page {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .back-link:hover {
+      color: var(--accent-color);
+      transform: translateX(-3px);
+    }
+
+    .event-detail-card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      animation: slideUp 0.3s ease;
+    }
+
+    .event-detail-card h1 {
+      font-size: 32px;
+      color: var(--primary-color);
+      margin: 0 0 30px 0;
+      border-bottom: 4px solid var(--accent-color);
+      padding-bottom: 15px;
+    }
+
+    .event-info {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .event-info-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: var(--light-bg);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .event-info-item:hover {
+      background: linear-gradient(135deg, rgba(42, 82, 152, 0.05), rgba(243, 156, 18, 0.05));
+    }
+
+    .event-info-item strong {
+      color: var(--primary-color);
+      min-width: 100px;
+    }
+
+    .event-info-item span {
+      color: var(--dark-text);
+    }
+
+    .attendees-section {
+      margin: 30px 0;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(42, 82, 152, 0.05), rgba(243, 156, 18, 0.05));
+      border-radius: 8px;
+      border-left: 5px solid var(--secondary-color);
+    }
+
+    .attendees-section h3 {
+      color: var(--primary-color);
+      margin: 0 0 15px 0;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .attendees-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .attendees-list li {
+      padding: 10px 12px;
+      margin: 6px 0;
+      background: white;
+      border-radius: 6px;
+      border-left: 3px solid var(--accent-color);
+      color: var(--dark-text);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .attendees-list li:before {
+      content: "✓";
+      color: var(--success-color);
+      font-weight: bold;
+    }
+
+    .empty-attendees {
+      color: #999;
+      font-style: italic;
+      padding: 12px;
+      background: white;
+      border-radius: 6px;
+    }
+
+    .host-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .action-section {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid var(--light-bg);
+    }
+
+    .rsvp-btn {
+      flex: 1;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--success-color), #229954);
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .rsvp-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      background: linear-gradient(135deg, #229954, var(--success-color));
+    }
+
+    .rsvp-btn:active:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .rsvp-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .host-notice {
+      flex: 1;
+      padding: 16px;
+      background: linear-gradient(135deg, rgba(42, 82, 152, 0.1), rgba(243, 156, 18, 0.1));
+      border: 2px solid var(--secondary-color);
+      border-radius: 8px;
+      color: var(--primary-color);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .host-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid var(--light-bg);
+    }
+
+    .edit-btn, .delete-btn {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .edit-btn {
+      background: linear-gradient(135deg, var(--accent-color), #e67e22);
+      color: white;
+    }
+
+    .edit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .delete-btn {
+      background: linear-gradient(135deg, var(--danger-color), #c0392b);
+      color: white;
+    }
+
+    .delete-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .event-detail-card {
+        padding: 25px;
+      }
+
+      .event-detail-card h1 {
+        font-size: 24px;
+      }
+
+      .action-section {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <%- include("../partials/header") %>
+
+  <main>
+    <div class="event-detail-page">
+      <a href="/" class="back-link">← Back to Home</a>
+
+      <div class="event-detail-card">
+        <h1><%= event.title %></h1>
+
+        <div class="event-info">
+          <div class="event-info-item">
+            <strong>📅 Date:</strong>
+            <span><%= new Date(event.date).toDateString() %></span>
+          </div>
+          <div class="event-info-item">
+            <strong>🕐 Time:</strong>
+            <span><%= event.time %></span>
+          </div>
+          <% if (event.movieTitle) { %>
+            <div class="event-info-item">
+              <strong>🎬 Movie:</strong>
+              <span><em><%= event.movieTitle %></em></span>
+            </div>
+          <% } %>
+          <div class="event-info-item">
+            <strong>👤 Host:</strong>
+            <span><%= event.host.name %></span></div>
+        </div>
+
+        <div class="attendees-section">
+          <h3>👥 RSVPs (<%= event.attendees ? event.attendees.length : 0 %>)</h3>
+          <% if (event.attendees && event.attendees.length > 0) { %>
+            <ul class="attendees-list">
+              <% event.attendees.forEach(attendee => { %>
+                <li><%= attendee.name || attendee.email %></li>
+              <% }) %>
+            </ul>
+          <% } else { %>
+            <p class="empty-attendees">No one has RSVP'd yet. Be the first!</p>
+          <% } %>
+        </div>
+
+        <div class="action-section">
+          <% if (event.host._id.toString() !== user.id) { %>
+            <button id="rsvpBtn" class="rsvp-btn" onclick="handleRSVP()">✓ RSVP</button>
+          <% } else { %>
+            <div class="host-notice">🎯 You are the host of this event</div>
+          <% } %>
+        </div>
+
+        <% if (event.host._id.toString() === user.id) { %>
+          <div class="host-actions">
+            <button class="edit-btn" onclick="editEvent('<%= event._id %>')">✏️ Edit Event</button>
+            <button class="delete-btn" onclick="deleteEvent('<%= event._id %>')">🗑️ Delete Event</button>
+          </div>
+        <% } else { %>
+          <!-- Debug: Not host. Host ID: <%= event.host._id %>, User ID: <%= user.id %> -->
+        <% } %>
+      </div>
+    </div>
+  </main>
+
+  <%- include("../partials/footer") %>
+
+  <script>
+    async function handleRSVP() {
+      const btn = document.getElementById("rsvpBtn");
+      btn.disabled = true;
+      btn.textContent = "RSVPing...";
+
+      try {
+        const response = await fetch("/events/<%= event._id %>/rsvp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("RSVP successful!");
+          location.reload();
+        } else {
+          alert("Error: " + data.message);
+          btn.disabled = false;
+          btn.textContent = "RSVP";
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred");
+        btn.disabled = false;
+        btn.textContent = "RSVP";
+      }
+    }
+
+    async function deleteEvent(eventId) {
+      if (!confirm("Are you sure you want to delete this event? This action cannot be undone.")) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/events/${eventId}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" }
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Event deleted successfully!");
+          window.location.href = "/events";
+        } else {
+          alert("Error: " + data.message);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while deleting the event");
+      }
+    }
+
+    function editEvent(eventId) {
+      // Redirect to create event page with edit mode
+      // For now, we'll store the event data and redirect
+      localStorage.setItem("editEventId", eventId);
+      window.location.href = "/events/create";
+    }
+  </script>
+
+</body>
+</html>
