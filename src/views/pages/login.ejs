@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= title %></title>
   <link rel="stylesheet" href="/css/style.css" />
+  <link rel="shortcut icon" href="/images/animated-movie-icon/icons8-film-reel-50.png" type="image/x-icon">
+  <!-- Open Graph Meta Tags for Social Media Preview -->
+  <meta property="og:title" content="<%= title %>" />
+  <meta property="og:description" content="Host and join virtual movie events with friends. Discover movies together!" />
+  <meta property="og:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/images/animated-movie-icon/255.jpg' %>" />
+  <meta property="og:url" content="<%= typeof ogUrl !== 'undefined' ? ogUrl : 'https://movie-night-mayhem-mhjc.onrender.com/' %>" />
+  <meta property="og:type" content="website" />
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= title %>" />
+  <meta name="twitter:description" content="Host and join virtual movie events with friends. Discover movies together!" />
+  <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/images/animated-movie-icon/255.jpg' %>" />
   <style>
     .auth-container {
       max-width: 450px;
