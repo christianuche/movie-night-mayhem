@@ -1,61 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><%= title %></title>
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="shortcut icon" href="/images/animated-movie-icon/icons8-film-reel-50.png" type="image/x-icon">
-  <!-- Open Graph Meta Tags for Social Media Preview -->
-  <meta property="og:title" content="<%= title %>" />
-  <meta property="og:description" content="Host and join virtual movie events with friends. Discover movies together!" />
-  <meta property="og:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/images/animated-movie-icon/255.jpg' %>" />
-  <meta property="og:url" content="<%= typeof ogUrl !== 'undefined' ? ogUrl : 'https://movie-night-mayhem-mhjc.onrender.com/' %>" />
-  <meta property="og:type" content="website" />
-  
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="<%= title %>" />
-  <meta name="twitter:description" content="Host and join virtual movie events with friends. Discover movies together!" />
-  <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/images/animated-movie-icon/255.jpg' %>" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="shortcut icon" href="/images/animated-movie-icon/icons8-film-reel-50.png" type="image/x-icon">
+    <!-- Open Graph Meta Tags for Social Media Preview -->
+    <meta property="og:title" content="<%= title %>" />
+    <meta property="og:description" content="Host and join virtual movie events with friends. Discover movies together!" />
+    <meta property="og:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/images/animated-movie-icon/255.jpg' %>" />
+    <meta property="og:url" content="<%= typeof ogUrl !== 'undefined' ? ogUrl : 'https://movie-night-mayhem-mhjc.onrender.com/' %>" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<%= title %>" />
+    <meta name="twitter:description" content="Host and join virtual movie events with friends. Discover movies together!" />
+    <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/images/animated-movie-icon/255.jpg' %>" />
 </head>
+
 <body>
 
-  <%- include("../partials/header") %>
+    <%- include("../partials/header") %>
 
-  <main>
-<h2>Search Results for "<%= query %>"</h2>
+        <main>
+            <h2>Search Results for "
+                <%= query %>"</h2>
 
-<div class="movie-grid">
-  <% results.forEach(movie => { %>
-    <div class="movie-container">
-      <div class="movie-card">
-        <% if (movie.poster_path) { %>
-          <img src="https://image.tmdb.org/t/p/w200<%= movie.poster_path %>" alt="<%= movie.title %>" />
-        <% } else { %>
-          <div class="no-poster">No Image</div>
-        <% } %>
-        <% if (movie.ratings) { %>
-          <div class="ratings">
-            <% if (movie.ratings.imdbRating && movie.ratings.imdbRating !== 'N/A') { %>
-              <span>IMDb: <%= movie.ratings.imdbRating %></span>
-            <% } %>
-            <% if (movie.ratings.rottenTomatoes) { %>
-              <span>RT: <%= movie.ratings.rottenTomatoes %></span>
-            <% } %>
-            <% if (movie.ratings.metacritic && movie.ratings.metacritic !== 'N/A') { %>
-              <span>Metacritic: <%= movie.ratings.metacritic %></span>
-            <% } %>
-          </div>
-        <% } %>
-      </div>
-      <p><%= movie.title %></p>
-    </div>
-  <% }) %>
-</div>
-  </main>
+            <div class="movie-grid">
+                <% results.forEach(movie => { %>
+                    <div class="movie-container">
+                        <div class="movie-card">
+                            <% if (movie.poster_path) { %>
+                                <img src="https://image.tmdb.org/t/p/w200<%= movie.poster_path %>" alt="<%= movie.title %>" />
+                                <% } else { %>
+                                    <div class="no-poster">No Image</div>
+                                    <% } %>
+                                        <% if (movie.ratings) { %>
+                                            <div class="ratings">
+                                                <% if (movie.ratings.imdbRating && movie.ratings.imdbRating !== 'N/A') { %>
+                                                    <span>IMDb: <%= movie.ratings.imdbRating %></span>
+                                                    <% } %>
+                                                        <% if (movie.ratings.rottenTomatoes) { %>
+                                                            <span>RT: <%= movie.ratings.rottenTomatoes %></span>
+                                                            <% } %>
+                                                                <% if (movie.ratings.metacritic && movie.ratings.metacritic !== 'N/A') { %>
+                                                                    <span>Metacritic: <%= movie.ratings.metacritic %></span>
+                                                                    <% } %>
+                                            </div>
+                                            <% } %>
+                        </div>
+                        <p>
+                            <%= movie.title %>
+                        </p>
+                    </div>
+                    <% }) %>
+            </div>
+        </main>
 
-  <%- include("../partials/footer") %>
-  <script src="/js/modal.js"></script>
+        <%- include("../partials/footer") %>
+            <script src="/js/modal.js"></script>
 </body>
+
 </html>

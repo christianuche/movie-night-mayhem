@@ -1,25 +1,25 @@
 <header class="navbar">
-  <div class="logo">🍿 Movie Night Mayhem</div>
+    <div class="logo">🍿 Movie Night Mayhem</div>
 
-  <button class="hamburger" onclick="toggleMenu()">
+    <button class="hamburger" onclick="toggleMenu()">
     <span class="bar"></span>
     <span class="bar"></span>
     <span class="bar"></span>
   </button>
 
-  <nav id="nav-menu">
-    <a href="/">Home</a>
-    <a href="/events">My Events</a>
-    <a href="/profile">Profile</a>
-    <a href="/logout" class="logout-btn">Log Out</a>
-  </nav>
+    <nav id="nav-menu">
+        <a href="/">Home</a>
+        <a href="/events">My Events</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout" class="logout-btn">Log Out</a>
+    </nav>
 </header>
 
 <script>
-function toggleMenu() {
-  const menu = document.getElementById('nav-menu');
-  const hamburger = document.querySelector('.hamburger');
-  menu.classList.toggle('open');
-  hamburger.classList.toggle('open');
-}
+    function toggleMenu() {
+        const menu = document.getElementById('nav-menu');
+        const hamburger = document.querySelector('.hamburger');
+        menu.classList.toggle('open');
+        hamburger.classList.toggle('open');
+    }
 </script>
