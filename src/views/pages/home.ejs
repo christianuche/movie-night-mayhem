@@ -37,12 +37,28 @@
 
   <div class="movie-carousel">
     <% trending.forEach(movie => { %>
-      <div class="movie-card">
-        <% if (movie.poster_path) { %>
-            <img src="https://image.tmdb.org/t/p/w200<%= movie.poster_path %>" alt="<%= movie.title %>" />
-        <% } else { %>
-            <div class="no-poster">No Image</div>
-        <% } %>
+      <div class="movie-container">
+        <div class="movie-card">
+          <% if (movie.poster_path) { %>
+              <img src="https://image.tmdb.org/t/p/w200<%= movie.poster_path %>" alt="<%= movie.title %>" />
+          <% } else { %>
+              <div class="no-poster">No Image</div>
+          <% } %>
+          <% if (movie.ratings) { %>
+            <div class="ratings">
+              <% if (movie.ratings.imdbRating && movie.ratings.imdbRating !== 'N/A') { %>
+                <span>IMDb: <%= movie.ratings.imdbRating %></span>
+              <% } %>
+              <% if (movie.ratings.rottenTomatoes) { %>
+                <span>RT: <%= movie.ratings.rottenTomatoes %></span>
+              <% } %>
+              <% if (movie.ratings.metacritic && movie.ratings.metacritic !== 'N/A') { %>
+                <span>Meta: <%= movie.ratings.metacritic %></span>
+              <% } %>
+            </div>
+          <% } %>
+        </div>
+        <p><%= movie.title %></p>
       </div>
     <% }) %>
   </div>
