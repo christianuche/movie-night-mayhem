@@ -4,39 +4,39 @@ dotenv.config();
 
 // Create transporter (Gmail example - you can change to your email service)
 const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
-  },
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+    },
 });
 
 // Fallback transporter for development (doesn't actually send)
 const devTransporter = {
-  sendMail: async (options) => {
-    console.log("📧 [DEV MODE] Email would be sent:");
-    console.log(`To: ${options.to}`);
-    console.log(`Subject: ${options.subject}`);
-    console.log(`HTML: ${options.html}`);
-    return { messageId: "dev-mode" };
-  },
+    sendMail: async(options) => {
+        console.log("📧 [DEV MODE] Email would be sent:");
+        console.log(`To: ${options.to}`);
+        console.log(`Subject: ${options.subject}`);
+        console.log(`HTML: ${options.html}`);
+        return { messageId: "dev-mode" };
+    },
 };
 
 const isDevMode = !process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD;
 
-export const sendInvitationEmail = async (
-  recipientEmail,
-  eventTitle,
-  eventDate,
-  eventTime,
-  movieTitle,
-  hostName
-) => {
-  const formatter = isDevMode ? devTransporter : transporter;
+export const sendInvitationEmail = async(
+        recipientEmail,
+        eventTitle,
+        eventDate,
+        eventTime,
+        movieTitle,
+        hostName
+    ) => {
+        const formatter = isDevMode ? devTransporter : transporter;
 
-  const eventDateFormatted = new Date(eventDate).toDateString();
+        const eventDateFormatted = new Date(eventDate).toDateString();
 
-  const htmlContent = `
+        const htmlContent = `
     <!DOCTYPE html>
     <html>
       <head>
