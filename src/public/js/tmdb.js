@@ -13,8 +13,13 @@ const getOMDbRatings = async(imdbId) => {
     if (!imdbId) return null;
     try {
         const res = await axios.get(OMDB_BASE_URL, {
-            params: { apikey: OMDB_API_KEY, i: imdbId }
+            params: { 
+                apikey: OMDB_API_KEY, 
+                i: imdbId }
         });
+
+        console.log("OMDb RAW JSON:", res.data);
+
         if (res.data.Response === "True") {
             return {
                 imdbRating: res.data.imdbRating,

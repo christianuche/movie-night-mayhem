@@ -41,7 +41,6 @@ body {
     display: flex;
     flex-direction: column;
 }
-
 main {
     flex: 1;
     padding: 20px;
@@ -614,6 +613,125 @@ main>h2 {
     padding: 20px 0;
 }
 
+/* =========== Toggle Dark Mode - Joke Styling ========== */
+body.dark {
+  background-color: #121212;
+  color: white;
+}
+
+body.dark #darkModeToggle {
+    color: var(--light-text);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+
+#darkModeToggle {
+    background: var(--danger-color);
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+
+#darkModeToggle:hover {
+    background: #c0392b;
+    box-shadow: var(--shadow);
+}
+
+/*Spinner Loader*/
+#jokeSection {
+  background: linear-gradient(135deg, #ff7f50, #ffb347);
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 500px;
+  margin: 40px auto;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  color: #fff;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Heading */
+#jokeSection h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Joke text */
+/* Joke Section Styling */
+#jokeSection {
+  background: linear-gradient(135deg, #ff7f50, #ffb347);
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 500px;
+  margin: 40px auto;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  color: #fff;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+#jokeSection h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Joke text */
+#jokeText {
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 15px 20px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.5s ease-in-out;
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+/* Spinner */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #fff;
+  border-top: 6px solid #ffea00;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Dark Mode Styling Example */
+body.dark #jokeSection {
+  background: linear-gradient(135deg, #222, #555);
+}
+
+body.dark .spinner {
+  border: 6px solid #888;
+  border-top: 6px solid #ffea00;
+}
 
 /* ========== ANIMATIONS ==========*/
 

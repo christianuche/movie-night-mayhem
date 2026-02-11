@@ -1,0 +1,73 @@
+[
+  { "id": 1, "joke": "Why don’t programmers like nature? Too many bugs." },
+  { "id": 2, "joke": "Why did the movie go to school? To get better ratings!" },
+  { "id": 3, "joke": "Why was the computer cold? It left its Windows open." },
+  {
+    "id": 4,
+    "joke": "Why did Batman skip church? Because he doesn’t believe in Christian Bale."
+  },
+  {
+    "id": 5,
+    "joke": "Why did the scarecrow become a movie star? Because he was outstanding in his field."
+  },
+  {
+    "id": 6,
+    "joke": "Why don’t skeletons watch horror movies? They don’t have the guts."
+  },
+  {
+    "id": 7,
+    "joke": "Why did the director go broke? Because he shot too many scenes."
+  },
+  {
+    "id": 8,
+    "joke": "Why was the math book sad at the cinema? It had too many problems."
+  },
+  {
+    "id": 9,
+    "joke": "Why don’t movies ever get tired? Because they always have good reels."
+  },
+  {
+    "id": 10,
+    "joke": "Why did the popcorn break up? It felt too buttered up."
+  },
+  {
+    "id": 11,
+    "joke": "Why was the actor arrested? For stealing the spotlight."
+  },
+  {
+    "id": 12,
+    "joke": "Why did the film fail the test? It wasn’t properly directed."
+  },
+  {
+    "id": 13,
+    "joke": "Why did the computer become a movie critic? It had great processing skills."
+  },
+  {
+    "id": 14,
+    "joke": "Why did the superhero flush the toilet? Because it was his duty."
+  },
+  {
+    "id": 15,
+    "joke": "Why did the movie bring a ladder? To reach new heights in ratings."
+  },
+  {
+    "id": 16,
+    "joke": "Why did the horror movie get promoted? It had great scare-er credentials."
+  },
+  {
+    "id": 17,
+    "joke": "Why did the actor carry a pencil? In case he needed to draw attention."
+  },
+  {
+    "id": 18,
+    "joke": "Why was the movie calm? Because it had good composure."
+  },
+  {
+    "id": 19,
+    "joke": "Why did the cinema hire a gardener? To help with the plot twists."
+  },
+  {
+    "id": 20,
+    "joke": "Why did the romantic movie break up? It lost its spark."
+  }
+]

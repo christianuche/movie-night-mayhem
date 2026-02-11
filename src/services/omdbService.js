@@ -15,7 +15,7 @@ export const getMovieRatings = async(imdbId) => {
         if (res.data.Response === "True") {
             return {
                 imdbRating: res.data.imdbRating,
-                rottenTomatoes: res.data.Ratings.find(r => r.Source === "Rotten Tomatoes") ? .Value || null,
+                rottenTomatoes: res.data.Ratings.find(r => r.Source === "Rotten Tomatoes") ?.Value || null,
                 metacritic: res.data.Metacritic || null
             };
         }

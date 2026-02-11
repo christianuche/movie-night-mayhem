@@ -95,3 +95,95 @@ window.closeEventModal = closeEventModal;
 window.submitEventForm = submitEventForm;
 window.searchMovieInModal = searchMovieInModal;
 window.selectMovie = selectMovie;
+
+
+
+const toggleButton = document.getElementById("darkModeToggle");
+
+// Load the saved theme from localStorage
+window.addEventListener("load", () => {
+  const darkMode = localStorage.getItme("darkMode");
+
+  if (darkMode === "enabled") {
+    document.body.classList.add("dark");
+  }
+});
+
+// Toggle dark mode
+toggleButton.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+
+  if (document.body.classList.contains("dark")) {
+    localStorage.setItem("darkMode", "enabled");
+  } else {
+    localStorage.setItem("darkMode", "disabled");
+  }
+});
+
+// Joke fetching functionality
+let jokes = [];
+let currentIndex = 0;
+const displayTime = 6000; // time to show joke
+const loaderTime = 3000; // time to show loader
+
+async function loadJokes() {
+  const loader = document.getElementById("loader");
+  const jokeText = document.getElementById("jokeText");
+
+  try {
+    const response = await fetch("jokes.json");
+    jokes = await response.json();
+
+    // Load saved joke index
+    const savedIndex = localStorage.getItem("jokeIndex");
+    if (savedIndex !== null) {
+      currentIndex = parseInt(savedIndex);
+    } else {
+      currentIndex = Math.floor(Math.random() * jokes.length);
+    }
+
+    // Start joke loop
+    showJokeWithLoader();
+  } catch (error) {
+    loader.style.display = "none";
+    jokeText.style.display = "block";
+    jokeText.textContent = "Oops! Couldn't load a joke.";
+    console.error(error);
+  }
+}
+
+function showJokeWithLoader() {
+  const loader = document.getElementById("loader");
+  const jokeText = document.getElementById("jokeText");
+
+  // Fade out old joke
+  jokeText.classList.remove("fade-in");
+  jokeText.classList.add("fade-out");
+
+  // Show loader
+  loader.style.display = "block";
+  jokeText.style.display = "none";
+
+  setTimeout(() => {
+    // Hide loader
+    loader.style.display = "none";
+    jokeText.style.display = "block";
+
+    // Fade in new joke
+    jokeText.textContent = jokes[currentIndex].joke;
+    jokeText.classList.remove("fade-out");
+    jokeText.classList.add("fade-in");
+
+    // Save current joke index
+    localStorage.setItem("jokeIndex", currentIndex);
+
+    // Move to next joke
+    currentIndex = (currentIndex + 1) % jokes.length;
+
+    // Schedule next joke
+    setTimeout(showJokeWithLoader, displayTime);
+  }, loaderTime);
+}
+
+// Load jokes when page loads
+window.addEventListener("load", loadJokes);
