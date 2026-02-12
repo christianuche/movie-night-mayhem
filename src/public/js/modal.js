@@ -187,3 +187,29 @@ function showJokeWithLoader() {
 
 // Load jokes when page loads
 window.addEventListener("load", loadJokes);
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.querySelector(".search-input");
+
+  const savedSearch = localStorage.getItem("lastSearch");
+
+  if (savedSearch) {
+    searchInput.value = savedSearch;
+  }
+
+  searchInput.addEventListener("input", () => {
+    localStorage.setItem("lastSearch", searchInput.value);
+  });
+});
+
+
+function saveRecentlyViewed(movieId) {
+  let viewed = JSON.parse(localStorage.getItem("recentlyViewed")) || [];
+
+  viewed = viewed.filter((id) => id !== movieId);
+  viewed.unshift(movieId);
+  viewed = viewed.slice(0, 5);
+
+  localStorage.setItem("recentlyViewed", JSON.stringify(viewed));
+}
