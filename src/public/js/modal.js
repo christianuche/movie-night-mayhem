@@ -100,16 +100,14 @@ window.selectMovie = selectMovie;
 
 const toggleButton = document.getElementById("darkModeToggle");
 
-// Load the saved theme from localStorage
-window.addEventListener("load", () => {
-  const darkMode = localStorage.getItme("darkMode");
+window.addEventListener("DOMContentLoaded", () => {
+  const darkMode = localStorage.getItem("darkMode");
 
   if (darkMode === "enabled") {
     document.body.classList.add("dark");
   }
 });
 
-// Toggle dark mode
 toggleButton.addEventListener("click", () => {
   document.body.classList.toggle("dark");
 
@@ -119,6 +117,7 @@ toggleButton.addEventListener("click", () => {
     localStorage.setItem("darkMode", "disabled");
   }
 });
+
 
 // Joke fetching functionality
 let jokes = [];

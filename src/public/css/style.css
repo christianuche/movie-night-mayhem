@@ -733,6 +733,99 @@ body.dark .spinner {
   border-top: 6px solid #ffea00;
 }
 
+/* =========================
+   GLOBAL DARK MODE
+========================= */
+
+body.dark {
+  background: #1f1c1c;
+  color: #fffbfb;
+}
+
+/* Sections */
+body.dark .trending,
+body.dark .upcoming-events,
+body.dark .create-event-section,
+body.dark .recommend {
+  background: #242222;
+  color: #edebeb;
+}
+
+/* Movie cards */
+body.dark .movie-card {
+  background: #4f4949;
+}
+
+/* Event cards */
+body.dark .event-card {
+  background: #2a2a2a;
+  color: #ffffff;
+}
+
+/* Modal */
+body.dark .modal-content {
+  background: #1f1f1f;
+  color: #ffffff;
+}
+
+/* Search input */
+body.dark .search-input {
+  background: #2a2a2a;
+  color: white;
+  border-color: #444;
+}
+
+/* Footer */
+body.dark footer {
+  background: #181818;
+}
+
+/* =========================
+   DARK MODE - AUTH PAGES
+========================= */
+
+body.dark .auth-card {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark .auth-card h1 {
+  color: #ffffff;
+}
+
+body.dark .auth-subtitle {
+  color: #bbbbbb;
+}
+
+body.dark .form-group label {
+  color: #dddddd;
+}
+
+body.dark .auth-form input {
+  background: #2a2a2a;
+  color: #ffffff;
+  border-color: #444;
+}
+
+body.dark .auth-form input:focus {
+  border-color: #888;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+body.dark .auth-link {
+  color: #bbbbbb;
+}
+
+body.dark .auth-link a {
+  color: #f39c12;
+}
+
+body.dark .error-alert {
+  background: #3a1f1f;
+  color: #ff6b6b;
+}
+
+
 /* ========== ANIMATIONS ==========*/
 
 @keyframes fadeIn {
