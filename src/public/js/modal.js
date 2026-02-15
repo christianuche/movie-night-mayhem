@@ -155,6 +155,9 @@ function showJokeWithLoader() {
   const loader = document.getElementById("loader");
   const jokeText = document.getElementById("jokeText");
 
+  // 🛑 STOP if elements don't exist
+  if (!loader || !jokeText || jokes.length === 0) return;
+
   // Fade out old joke
   jokeText.classList.remove("fade-in");
   jokeText.classList.add("fade-out");
@@ -190,6 +193,8 @@ window.addEventListener("load", loadJokes);
 
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.querySelector(".search-input");
+  
+  if (!searchInput) return; // 🛑 STOP if not on search page
 
   const savedSearch = localStorage.getItem("lastSearch");
 
